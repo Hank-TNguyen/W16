@@ -1,0 +1,5 @@
+print("I read" + input())
+print("I read" + input())
+print("I read" + input())
+print("I read" + input())
+print("I read" + input())
