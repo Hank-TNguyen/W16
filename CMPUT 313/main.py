@@ -1,15 +1,14 @@
 from Simulation import Simulation 
-
+import csv
 
 try:
+	# with open('output_data.csv', 'a+') as f:
+	# 	fieldnames = ['M', 'N', 'B', 'K', 'e', 'Frame transmission', 'Upper bound Ft', 'Lower Bound Ft', 'Throughput', 'Upper Bound Tp', 'Lower Bound Tp']
+	# 	writer = csv.DictWriter(f, fieldnames = fieldnames)
+	# 	writer.writeheader()
 	for i in range(100):
 		Test = Simulation()
 		Test.run()
-		# Test.in_burst(5000)
-		# Test.in_burst(5001)
-		# Test.in_burst(5049)
-		# Test.in_burst(5050)
-		# Test.in_burst(5051)
 		input()
 
 except EOFError: 

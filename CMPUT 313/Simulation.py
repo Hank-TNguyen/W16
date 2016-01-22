@@ -1,7 +1,7 @@
 import random 
 import math 
 import statistics
-
+import csv
 
 class Simulation:
 	
@@ -28,14 +28,8 @@ class Simulation:
 		# For the burst model, set this to 50 and 500 bit times.
 		# N non-burst length.  0 for the independent model.  
 		# For the burst model, set this to 5000 and 1000 bit times.
-		if not (self.M == 'i'): 
-			#################### 0 by default or require the users' input	?
-			self.N = int(input())
-			self.B = int(input())
-		else: 
-			self.N = 0
-			self.B = 0
-			print()
+		self.N = int(input())
+		self.B = int(input())
 
 		# R (integer)   The length of the simulation in bit time units.   
 		# You must run this long enough to obtain stable results (for reasonable error rates).  
@@ -118,6 +112,8 @@ class Simulation:
 
 		a, b, c, d, e, f = self.process_result(sum_t_frame,sum_r_frame)
 		self.print_result(a, b, c, d, e, f)
+		
+		self.writeResults('output_data.csv', [self.M, self.N, self.B, self.K, self.e , a,b,c,d,e,f])
 
 	def process_result(self, t_frame, r_frame):
 		print(t_frame, r_frame) 
@@ -277,3 +273,18 @@ class Simulation:
 		
 		# return number of errors in the message
 		return errors
+
+	def writeResults(self, Filename, data): 
+
+		with open(Filename, 'a+') as f:
+			fieldnames = ['M', 'N', 'B', 'K', 'e', 'Frame transmission', 'Upper bound Ft', 'Lower Bound Ft', 'Throughput', 'Upper Bound Tp', 'Lower Bound Tp']
+			writer = csv.DictWriter(f, fieldnames = fieldnames)
+
+			# writer.writeheader()
+			to_write = {}
+			for i in range(len(fieldnames)): 
+				to_write[fieldnames[i]] = data[i] 
+			
+			writer.writerow(to_write)
+
+		return 
